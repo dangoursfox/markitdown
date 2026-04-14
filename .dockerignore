@@ -1,2 +1,9 @@
 *
 !packages/
+!web_app/
+.git
+.github
+__pycache__
+*.pyc
+.venv
+.env

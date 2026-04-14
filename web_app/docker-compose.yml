@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  markitdown-web:
+    build:
+      context: ..
+      dockerfile: web_app/Dockerfile
+    container_name: markitdown-web
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    # NAS 性能优化配置
+    deploy:
+      resources:
+        limits:
+          cpus: '0.8'     # 限制 CPU 使用，防止影响 NAS 其他服务
+          memory: 512M    # 限制内存使用，防止内存溢出
+    environment:
+      - TZ=Asia/Shanghai
+      - TMPDIR=/tmp
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"   # 限制日志大小，保护磁盘空间
+        max-file: "3"
